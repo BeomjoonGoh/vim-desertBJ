@@ -3,4 +3,5 @@
 colorscheme based on default desert.vim.
 To use,
 ```vim
-    colorscheme desertBJ
+  colorscheme desertBJ
+In your vimrc.
