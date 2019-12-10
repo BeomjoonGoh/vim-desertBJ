@@ -5,4 +5,4 @@ To use,
 ```vim
 colorscheme desertBJ
 ```
-In your `vimrc`.
+in your `vimrc`.
