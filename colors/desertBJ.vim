@@ -1,5 +1,7 @@
 " Vim color file
-" Maintainer: bjgoh1990
+" Language:    vim
+" Maintainer:  Beomjoon Goh
+" Last Change: 16 Jan 2020 04:23:59 +0900
 
 " disable under win32 colsole
 if has("win32") && !has("gui_running")
