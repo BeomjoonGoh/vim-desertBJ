@@ -22,5 +22,3 @@ place the following in your `vimrc` to use this color scheme:
 ```vim
 colorscheme desertBJ
 ```
-
-## Screen shots
