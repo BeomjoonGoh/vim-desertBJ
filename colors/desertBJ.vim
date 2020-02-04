@@ -23,9 +23,9 @@ let g:colors_name="desertBJ"
 highlight ColorColumn                   ctermbg=234 cterm=NONE
 highlight Cursor            ctermfg=016 ctermbg=226 cterm=NONE
 highlight CursorLineNr      ctermfg=180 ctermbg=234 cterm=BOLD
-highlight DiffAdd           ctermfg=NONE ctermbg=233
+highlight DiffAdd           ctermfg=NONE ctermbg=234
 highlight DiffChange        ctermfg=NONE ctermbg=236
-highlight DiffDelete        ctermfg=242 ctermbg=NONE cterm=BOLD
+highlight DiffDelete        ctermfg=242 ctermbg=234 cterm=BOLD
 highlight DiffText          ctermfg=016 ctermbg=211 cterm=NONE
 highlight ErrorMsg          ctermfg=231 ctermbg=196 cterm=NONE
 highlight FoldColumn        ctermfg=242 ctermbg=234 cterm=NONE
