@@ -42,17 +42,17 @@ highlight Question          ctermfg=048             cterm=NONE
 highlight QuickFixLine      ctermbg=234 cterm=UNDERLINE
 highlight Search            ctermfg=253 ctermbg=060 cterm=NONE
 highlight SpecialKey        ctermfg=240             cterm=NONE
-highlight SpellBad          ctermfg=210 ctermbg=238 cterm=NONE
-highlight SpellRare         ctermfg=013 ctermbg=238 cterm=NONE
+highlight SpellBad          ctermfg=210 ctermbg=236 cterm=NONE
+highlight SpellRare         ctermfg=013 ctermbg=236 cterm=NONE
 highlight StatusLine        ctermfg=016 ctermbg=144 cterm=BOLD
-highlight StatusLineNC      ctermfg=253 ctermbg=241 cterm=NONE
-highlight StatusLineTerm    ctermfg=016 ctermbg=144 cterm=BOLD
-highlight StatusLineTermNC  ctermfg=253 ctermbg=241 cterm=NONE
+highlight StatusLineNC      ctermfg=253 ctermbg=236 cterm=NONE
+highlight StatusLineTerm    ctermfg=016 ctermbg=108 cterm=BOLD
+highlight StatusLineTermNC  ctermfg=108 ctermbg=236 cterm=NONE
 highlight TabLine           ctermfg=245 ctermbg=234 cterm=NONE
 highlight TabLineFill       ctermfg=180 ctermbg=234 cterm=NONE
 highlight TabLineSel        ctermfg=230 ctermbg=236 cterm=BOLD
 highlight Title             ctermfg=167             cterm=NONE
-highlight VertSplit         ctermfg=241 ctermbg=241 cterm=NONE
+highlight VertSplit         ctermfg=236 ctermbg=236 cterm=NONE
 highlight Visual            ctermfg=235 ctermbg=215 cterm=NONE
 highlight WarningMsg        ctermfg=210             cterm=BOLD
 highlight WildMenu          ctermfg=253 ctermbg=235 cterm=NONE
