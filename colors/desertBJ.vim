@@ -26,7 +26,7 @@ highlight CursorLineNr      ctermfg=180 ctermbg=234 cterm=BOLD
 highlight DiffAdd           ctermfg=NONE ctermbg=234
 highlight DiffChange        ctermfg=NONE ctermbg=236
 highlight DiffDelete        ctermfg=242 ctermbg=234 cterm=BOLD
-highlight DiffText          ctermfg=016 ctermbg=211 cterm=NONE
+highlight DiffText          ctermfg=016 ctermbg=210 cterm=NONE
 highlight ErrorMsg          ctermfg=231 ctermbg=196 cterm=NONE
 highlight FoldColumn        ctermfg=242 ctermbg=234 cterm=NONE
 highlight Folded            ctermfg=115 ctermbg=234 cterm=NONE
@@ -67,7 +67,7 @@ highlight Identifier        ctermfg=117 cterm=NONE
 highlight Ignore            ctermfg=245 cterm=NONE
 highlight Number            ctermfg=180 cterm=NONE
 highlight Operator          ctermfg=180 cterm=BOLD
-highlight PreProc           ctermfg=211 cterm=NONE
+highlight PreProc           ctermfg=218 cterm=NONE
 highlight Special           ctermfg=122 cterm=NONE
 highlight Statement         ctermfg=186 cterm=BOLD
 highlight String            ctermfg=210 cterm=NONE
