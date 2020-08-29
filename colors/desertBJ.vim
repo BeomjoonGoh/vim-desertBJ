@@ -31,19 +31,20 @@ highlight Error             ctermfg=016  ctermbg=210  cterm=BOLD
 highlight ErrorMsg          ctermfg=231  ctermbg=196  cterm=NONE
 highlight FoldColumn        ctermfg=242  ctermbg=234  cterm=NONE
 highlight Folded            ctermfg=122  ctermbg=234  cterm=NONE
-highlight IncSearch         ctermfg=159  ctermbg=026
+highlight IncSearch         ctermfg=094  ctermbg=230  cterm=NONE
 highlight LineNr            ctermfg=180  ctermbg=234  cterm=NONE
 highlight MatchParen        ctermfg=226  ctermbg=241  cterm=BOLD
 highlight ModeMsg           ctermfg=117               cterm=NONE
 highlight MoreMsg           ctermfg=029               cterm=NONE
 highlight NonText           ctermfg=051  ctermbg=NONE cterm=NONE
-highlight Pmenu             ctermfg=231  ctermbg=060  cterm=NONE
-highlight PmenuSel          ctermfg=060  ctermbg=253
+highlight Pmenu             ctermfg=234  ctermbg=144  cterm=NONE
+highlight PmenuSel          ctermfg=230  ctermbg=094  cterm=NONE
 highlight Question          ctermfg=048               cterm=NONE
 highlight QuickFixLine      ctermbg=234               cterm=UNDERLINE
-highlight Search            ctermfg=253  ctermbg=060  cterm=NONE
+highlight Search            ctermfg=230  ctermbg=094  cterm=NONE
 highlight SpecialKey        ctermfg=240               cterm=NONE
 highlight SpellBad          ctermfg=210  ctermbg=236  cterm=NONE
+highlight SpellCap          ctermfg=235  ctermbg=117  cterm=NONE
 highlight SpellRare         ctermfg=013  ctermbg=236  cterm=NONE
 highlight StatusLine        ctermfg=016  ctermbg=144  cterm=BOLD
 highlight StatusLineNC      ctermfg=253  ctermbg=236  cterm=NONE
