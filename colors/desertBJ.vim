@@ -37,21 +37,33 @@ endfunction
 
 function! s:highlight(group, fg, bg, at) abort
   let l:cmd = ""
-  if !empty(a:fg)
-    let l:cmd .= printf("ctermfg=%s guifg=%s ", a:fg, s:rgb_dict[a:fg])
-  endif
-  if !empty(a:bg)
-    let l:cmd .= printf("ctermbg=%s guibg=%s ", a:bg, s:rgb_dict[a:bg])
-  endif
-  if !empty(a:at)
-    let l:cmd .= printf("cterm=%s gui=%s ", a:at, a:at)
+  if has("gui_running")
+    if !empty(a:fg)
+      let l:cmd .= "ctermfg=".a:fg." guifg=".s:rgb_dict[a:fg]." "
+    endif
+    if !empty(a:bg)
+      let l:cmd .= "ctermbg=".a:bg." guibg=".s:rgb_dict[a:bg]." "
+    endif
+    if !empty(a:at)
+      let l:cmd .= "cterm=".a:at." gui=".a:at." "
+    endif
+  else 
+    if !empty(a:fg)
+      let l:cmd .= "ctermfg=".a:fg." "
+    endif
+    if !empty(a:bg)
+      let l:cmd .= "ctermbg=".a:bg." "
+    endif
+    if !empty(a:at)
+      let l:cmd .= "cterm=".a:at." "
+    endif
   endif
   if !empty(l:cmd)
     execute "highlight" a:group l:cmd
   endif
 endfunction
 
-if !exists("s:rgb_dict")
+if !exists("s:rgb_dict") && has("gui_running")
   let s:rgb_dict = s:construct_rgb_dict()
 endif
 
