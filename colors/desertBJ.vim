@@ -13,8 +13,7 @@ if exists("syntax_on")
 endif
 
 let g:colors_name="desertBJ"
-
-set background=dark
+let s:lightmode= &background == 'light'
 
 function! s:construct_rgb_dict() abort
   let l:rgb_dict = { }
@@ -36,140 +35,141 @@ function! s:construct_rgb_dict() abort
 endfunction
 
 function! s:highlight(group, fg, bg, at) abort
+  let fg = a:fg[s:lightmode]
+  let bg = a:bg[s:lightmode]
+
   let l:cmd = ""
-  if has("gui_running")
-    if !empty(a:fg)
-      let l:cmd .= "ctermfg=".a:fg." guifg=".s:rgb_dict[a:fg]." "
-    endif
-    if !empty(a:bg)
-      let l:cmd .= "ctermbg=".a:bg." guibg=".s:rgb_dict[a:bg]." "
-    endif
-    if !empty(a:at)
-      let l:cmd .= "cterm=".a:at." gui=".a:at." "
-    endif
-  else 
-    if !empty(a:fg)
-      let l:cmd .= "ctermfg=".a:fg." "
-    endif
-    if !empty(a:bg)
-      let l:cmd .= "ctermbg=".a:bg." "
-    endif
-    if !empty(a:at)
-      let l:cmd .= "cterm=".a:at." "
-    endif
+  if !empty(fg)
+    let l:cmd .= "ctermfg=".fg." guifg=".s:rgb_dict[fg]." "
+  endif
+  if !empty(bg)
+    let l:cmd .= "ctermbg=".bg." guibg=".s:rgb_dict[bg]." "
+  endif
+  if !empty(a:at)
+    let l:cmd .= "cterm=".a:at." gui=".a:at." "
   endif
   if !empty(l:cmd)
     execute "highlight" a:group l:cmd
   endif
 endfunction
 
-if !exists("s:rgb_dict") && has("gui_running")
+if !exists("s:rgb_dict")
   let s:rgb_dict = s:construct_rgb_dict()
 endif
 
 if get(g:, 'desertBJ_terminal', 1)
-  let g:terminal_ansi_colors = [
-        \ '#000000', '#ff8787', '#87d787', '#dfdf87', '#87d7ff', '#ffafd7', '#87ffd7', '#e4e4e4',
-        \ '#000000', '#ff8787', '#87d787', '#dfdf87', '#87d7ff', '#ffafd7', '#87ffd7', '#ffffff',
-        \ ] " 16, 210, 114, 186, 117, 218, 122, 231
+  if s:lightmode
+    let g:terminal_ansi_colors = [
+          \ '#e4e4e4', '#d75f5ff', '#008700', '#878700', '#0087af', '#af5f87', '#00af87', '#000000',
+          \ '#ffffff', '#d75f5ff', '#008700', '#878700', '#0087af', '#af5f87', '#00af87', '#000000',
+          \ ] "231, 167,  28, 100,  31, 132,  36,  16
+  else
+    let g:terminal_ansi_colors = [
+          \ '#000000', '#ff8787', '#87d787', '#dfdf87', '#87d7ff', '#ffafd7', '#87ffd7', '#e4e4e4',
+          \ '#000000', '#ff8787', '#87d787', '#dfdf87', '#87d7ff', '#ffafd7', '#87ffd7', '#ffffff',
+          \ ] " 16, 210, 114, 186, 117, 218, 122, 231
+  endif
 endif
 
 " Default highlighting groups
-call s:highlight("ColorColumn",      "",  234, "NONE")
-call s:highlight("Conceal",          "",  "",   "")
-call s:highlight("Cursor",           16,  186, "NONE")
-call s:highlight("CursorColumn",     "",  236, "NONE")
-call s:highlight("CursorLine",       "",  236, "NONE")
-call s:highlight("Directory",        114, "",  "BOLD")
-call s:highlight("DiffAdd",          "",  234, "")
-call s:highlight("DiffChange",       "",  236, "")
-call s:highlight("DiffDelete",       "",  23,  "")
-call s:highlight("DiffText",         "",  52,  "")
-call s:highlight("EndOfBuffer",      51,  "",  "NONE")
-call s:highlight("ErrorMsg",         231, 196, "NONE")
-call s:highlight("VertSplit",        236, 236, "NONE")
-call s:highlight("Folded",           122, 234, "NONE")
-call s:highlight("FoldColumn",       242, 234, "NONE")
-call s:highlight("SignColumn",       242, 234, "NONE")
-call s:highlight("IncSearch",        94,  230, "NONE")
-call s:highlight("LineNr",           137, 234, "NONE")
-call s:highlight("LineNrAbove",      137, 234, "NONE")
-call s:highlight("LineNrBelow",      137, 234, "NONE")
-call s:highlight("CursorLineNr",     137, 234, "BOLD")
-call s:highlight("MatchParen",       226, 242, "BOLD")
-call s:highlight("ModeMsg",          117, "",  "BOLD")
-call s:highlight("MoreMsg",          71,  "",  "NONE")
-call s:highlight("NonText",          51,  "",  "NONE")
-call s:highlight("Pmenu",            234, 144, "NONE")
-call s:highlight("PmenuSel",         230, 94,  "NONE")
-call s:highlight("PmenuSbar",        "",  144, "NONE")
-call s:highlight("PmenuThumb",       "",  253, "NONE")
-call s:highlight("Question",         71,  "",  "BOLD")
-call s:highlight("QuickFixLine",     "",  234, "UNDERLINE")
-call s:highlight("Search",           230, 94,  "NONE")
-call s:highlight("SpecialKey",       240, "",  "NONE")
-call s:highlight("SpellBad",         210, 236, "NONE")
-call s:highlight("SpellCap",         235, 117, "NONE")
-call s:highlight("SpellLocal",       235, 122, "NONE")
-call s:highlight("SpellRare",        218, 236, "NONE")
-call s:highlight("StatusLine",       16,  144, "BOLD")
-call s:highlight("StatusLineNC",     253, 236, "NONE")
-call s:highlight("StatusLineTerm",   16,  108, "BOLD")
-call s:highlight("StatusLineTermNC", 108, 236, "NONE")
-call s:highlight("TabLine",          245, 234, "NONE")
-call s:highlight("TabLineFill",      180, 234, "NONE")
-call s:highlight("TabLineSel",       230, 236, "BOLD")
-call s:highlight("Terminal",         "",  "",  "")
-call s:highlight("Title",            167, "",  "BOLD")
-call s:highlight("Visual",           235, 215, "NONE")
-call s:highlight("WarningMsg",       210, "",  "BOLD")
-call s:highlight("WildMenu",         253, 235, "NONE")
+if has("gui_running")
+  call s:highlight("Normal", ["", "" ], [16,  231], "")
+endif
+call s:highlight("ColorColumn",      ["",  "" ], [234, 253], "NONE")
+call s:highlight("Conceal",          ["",  "" ], ["",  "" ],  "")
+call s:highlight("Cursor",           [16,  231], [186, 186], "NONE")
+call s:highlight("CursorColumn",     ["",  "" ], [236, 251], "NONE")
+call s:highlight("CursorLine",       ["",  "" ], [236, 251], "NONE")
+call s:highlight("Directory",        [114, 28 ], ["",  "" ], "BOLD")
+call s:highlight("DiffAdd",          ["",  "" ], [234, 253], "")
+call s:highlight("DiffChange",       ["",  "" ], [236, 251], "")
+call s:highlight("DiffDelete",       ["",  "" ], [23,  109], "")
+call s:highlight("DiffText",         ["",  "" ], [52,  138], "")
+call s:highlight("EndOfBuffer",      [51,  37 ], ["",  "" ], "NONE")
+call s:highlight("ErrorMsg",         [231, 16 ], [196, 210], "NONE")
+call s:highlight("VertSplit",        [236, 251], [236, 251], "NONE")
+call s:highlight("Folded",           [122, 36 ], [234, 253], "NONE")
+call s:highlight("FoldColumn",       [242, 245], [234, 253], "NONE")
+call s:highlight("SignColumn",       [242, 245], [234, 253], "NONE")
+call s:highlight("IncSearch",        [94,  16 ], [230, 58 ], "NONE")
+call s:highlight("LineNr",           [137, 58 ], [234, 253], "NONE")
+call s:highlight("LineNrAbove",      [137, 58 ], [234, 253], "NONE")
+call s:highlight("LineNrBelow",      [137, 58 ], [234, 253], "NONE")
+call s:highlight("CursorLineNr",     [137, 58 ], [234, 253], "BOLD")
+call s:highlight("MatchParen",       [226, 186], [242, 245], "BOLD")
+call s:highlight("ModeMsg",          [117, 31 ], ["",  "" ], "BOLD")
+call s:highlight("MoreMsg",          [71,  22 ], ["",  "" ], "NONE")
+call s:highlight("NonText",          [51,  37 ], ["",  "" ], "NONE")
+call s:highlight("Pmenu",            [234, 253], [144, 58 ], "NONE")
+call s:highlight("PmenuSel",         [230, 58 ], [94,  180], "NONE")
+call s:highlight("PmenuSbar",        ["",  "" ], [144, 58 ], "NONE")
+call s:highlight("PmenuThumb",       ["",  "" ], [253, 234], "NONE")
+call s:highlight("Question",         [71,  22 ], ["",  "" ], "BOLD")
+call s:highlight("QuickFixLine",     ["",  "" ], [234, 253], "UNDERLINE")
+call s:highlight("Search",           [230, 58 ], [94,  180], "NONE")
+call s:highlight("SpecialKey",       [240, 247], ["",  "" ], "NONE")
+call s:highlight("SpellBad",         [210, 167], [236, 251], "NONE")
+call s:highlight("SpellCap",         [235, 252], [117, 31 ], "NONE")
+call s:highlight("SpellLocal",       [235, 252], [122, 36 ], "NONE")
+call s:highlight("SpellRare",        [218, 132], [236, 251], "NONE")
+call s:highlight("StatusLine",       [16,  231], [144, 58 ], "BOLD")
+call s:highlight("StatusLineNC",     [253, 234], [236, 251], "NONE")
+call s:highlight("StatusLineTerm",   [16,  231], [108, 22 ], "BOLD")
+call s:highlight("StatusLineTermNC", [108, 22 ], [236, 251], "NONE")
+call s:highlight("TabLine",          [245, 242], [234, 253], "NONE")
+call s:highlight("TabLineFill",      [180, 94 ], [234, 253], "NONE")
+call s:highlight("TabLineSel",       [230, 58 ], [236, 251], "BOLD")
+call s:highlight("Terminal",         ["",  "" ], ["",  "" ], "")
+call s:highlight("Title",            [167, 88 ], ["",  "" ], "BOLD")
+call s:highlight("Visual",           [235, 252], [215, 172], "NONE")
+call s:highlight("WarningMsg",       [210, 167], ["",  "" ], "BOLD")
+call s:highlight("WildMenu",         [253, 234], [235, 252], "NONE")
 
 " Syntax highlighting groups
-call s:highlight("Comment",          114, "",  "NONE")
+call s:highlight("Comment",          [114, 28 ], ["",  "" ], "NONE")
 
-call s:highlight("Constant",         210, "",  "NONE")
-call s:highlight("String",           210, "",  "NONE")
-call s:highlight("Character",        210, "",  "NONE")
-call s:highlight("Number",           180, "",  "NONE")
-call s:highlight("Boolean",          180, "",  "NONE")
-call s:highlight("Float",            180, "",  "NONE")
+call s:highlight("Constant",         [210, 167], ["",  "" ], "NONE")
+call s:highlight("String",           [210, 167], ["",  "" ], "NONE")
+call s:highlight("Character",        [210, 167], ["",  "" ], "NONE")
+call s:highlight("Number",           [180, 94 ], ["",  "" ], "NONE")
+call s:highlight("Boolean",          [180, 94 ], ["",  "" ], "NONE")
+call s:highlight("Float",            [180, 94 ], ["",  "" ], "NONE")
 
-call s:highlight("Identifier",       117, "",  "NONE")
-call s:highlight("Function",         117, "",  "NONE")
+call s:highlight("Identifier",       [117, 31 ], ["",  "" ], "NONE")
+call s:highlight("Function",         [117, 31 ], ["",  "" ], "NONE")
 
-call s:highlight("Statement",        186, "",  "BOLD")
-call s:highlight("Conditional",      186, "",  "BOLD")
-call s:highlight("Repeat",           186, "",  "BOLD")
-call s:highlight("Label",            186, "",  "BOLD")
-call s:highlight("Operator",         180, "",  "BOLD")
-call s:highlight("Keyword",          186, "",  "BOLD")
-call s:highlight("Exception",        186, "",  "BOLD")
+call s:highlight("Statement",        [186, 100], ["",  "" ], "BOLD")
+call s:highlight("Conditional",      [186, 100], ["",  "" ], "BOLD")
+call s:highlight("Repeat",           [186, 100], ["",  "" ], "BOLD")
+call s:highlight("Label",            [186, 100], ["",  "" ], "BOLD")
+call s:highlight("Operator",         [180, 94 ], ["",  "" ], "BOLD")
+call s:highlight("Keyword",          [186, 100], ["",  "" ], "BOLD")
+call s:highlight("Exception",        [186, 100], ["",  "" ], "BOLD")
 
-call s:highlight("PreProc",          218, "",  "NONE")
-call s:highlight("Include",          218, "",  "NONE")
-call s:highlight("Define",           218, "",  "NONE")
-call s:highlight("Macro",            218, "",  "NONE")
-call s:highlight("PreCondit",        218, "",  "NONE")
+call s:highlight("PreProc",          [218, 132], ["",  "" ], "NONE")
+call s:highlight("Include",          [218, 132], ["",  "" ], "NONE")
+call s:highlight("Define",           [218, 132], ["",  "" ], "NONE")
+call s:highlight("Macro",            [218, 132], ["",  "" ], "NONE")
+call s:highlight("PreCondit",        [218, 132], ["",  "" ], "NONE")
 
-call s:highlight("Type",             215, "",  "BOLD")
-call s:highlight("StorageClass",     215, "",  "BOLD")
-call s:highlight("Structure",        215, "",  "BOLD")
-call s:highlight("Typedef",          215, "",  "BOLD")
+call s:highlight("Type",             [215, 172], ["",  "" ], "BOLD")
+call s:highlight("StorageClass",     [215, 172], ["",  "" ], "BOLD")
+call s:highlight("Structure",        [215, 172], ["",  "" ], "BOLD")
+call s:highlight("Typedef",          [215, 172], ["",  "" ], "BOLD")
 
-call s:highlight("Special",          122, "",  "NONE")
-call s:highlight("SpecialChar",      122, "",  "NONE")
-call s:highlight("Tag",              122, "",  "NONE")
-call s:highlight("Delimiter",        245, "",  "BOLD")
-call s:highlight("SpecialComment",   122, "",  "NONE")
-call s:highlight("Debug",            122, "",  "NONE")
+call s:highlight("Special",          [122, 36 ], ["",  "" ], "NONE")
+call s:highlight("SpecialChar",      [122, 36 ], ["",  "" ], "NONE")
+call s:highlight("Tag",              [122, 36 ], ["",  "" ], "NONE")
+call s:highlight("Delimiter",        [245, 242], ["",  "" ], "BOLD")
+call s:highlight("SpecialComment",   [122, 36 ], ["",  "" ], "NONE")
+call s:highlight("Debug",            [122, 36 ], ["",  "" ], "NONE")
 
-call s:highlight("Underlined",       117,  "",  "UNDERLINE")
-call s:highlight("Ignore",           245, "",  "NONE")
-call s:highlight("Error",            16,  210, "BOLD")
-call s:highlight("Todo",             16,  144, "BOLD")
+call s:highlight("Underlined",       [117, 31 ], ["",  "" ], "UNDERLINE")
+call s:highlight("Ignore",           [245, 242], ["",  "" ], "NONE")
+call s:highlight("Error",            [16,  231], [210, 167], "BOLD")
+call s:highlight("Todo",             [16,  231], [144, 58 ], "BOLD")
 
 " Custom highlighting groups
-call s:highlight("CustomClass",      146, "",  "BOLD")
-call s:highlight("TabNumSel",        230, 236, "BOLD")
-call s:highlight("TabNum",           253, 234, "BOLD")
+call s:highlight("CustomClass",      [146, 103], ["",  "" ], "BOLD")
+call s:highlight("TabNumSel",        [230, 58 ], [236, 251], "BOLD")
+call s:highlight("TabNum",           [253, 234], [234, 253], "BOLD")

@@ -24,6 +24,7 @@ Otherwise copy `desertBJ.vim` file to `.vim/colors` directory to install manuall
 
 Place the following in your `vimrc` to use this color scheme:
 ```vim
+set background=dark " or light
 colorscheme desertBJ
 ```
 
